@@ -1,8 +1,8 @@
-# Prettier — быстрые инструкции для студентов
+# Prettier - быстрые инструкции для студентов
 
 Prettier форматирует код (JS, CSS, HTML, Markdown). Рекомендуется использовать его вместе с ESLint.
 
-1. Установите расширение Prettier — Code formatter в VS Code.
+1. Установите расширение Prettier - Code formatter в VS Code.
 
 2. Установите пакеты в корне проекта (cmd.exe):
 

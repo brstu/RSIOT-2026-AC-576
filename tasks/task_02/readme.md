@@ -26,7 +26,7 @@
     * логировать запуск, остановку и корректное завершение работы (graceful shutdown).
 2. Описать Kubernetes-манифесты:
     * Deployment с стратегией RollingUpdate и ресурсными лимитами/запросами;
-    * Service (ClusterIP / NodePort — в зависимости от варианта) для доступа к приложению;
+    * Service (ClusterIP / NodePort - в зависимости от варианта) для доступа к приложению;
     * ConfigMap/Secret для конфигурации сервиса;
     * (опционально) PersistentVolumeClaim + volume, если вариант требует хранения данных.
 3. Настроить liveness и readiness probes (HTTP) и убедиться, что они работают корректно.
@@ -71,11 +71,11 @@ slug = <группа>-<StudentID>-v<вариант> (пример, feis-41-12345
 <!-- START:criteria -->
 ## Критерии оценивания (100 баллов)
 
-* Подготовка и корректность Kubernetes-манифестов (Deployment, Service, ConfigMap/Secret, PVC при необходимости) — 30
-* Настройка liveness/readiness probes и политика обновления (RollingUpdate) — 25
-* Корректность контейнеризации и образа (multi-stage, non-root, health endpoints, логирование) — 20
-* Инструкции для локального тестирования (Kind/Minikube), проверка статусов и smoke-tests — 15
-* Метаданные и именование (labels, аннотации, slug, ENV) и оформление README — 10
+* Подготовка и корректность Kubernetes-манифестов (Deployment, Service, ConfigMap/Secret, PVC при необходимости) - 30
+* Настройка liveness/readiness probes и политика обновления (RollingUpdate) - 25
+* Корректность контейнеризации и образа (multi-stage, non-root, health endpoints, логирование) - 20
+* Инструкции для локального тестирования (Kind/Minikube), проверка статусов и smoke-tests - 15
+* Метаданные и именование (labels, аннотации, slug, ENV) и оформление README - 10
 
 <!-- END:criteria -->
 
@@ -90,5 +90,5 @@ slug = <группа>-<StudentID>-v<вариант> (пример, feis-41-12345
 
 ### Требования к именованию
 
-* Kubernetes-ресурсы: префиксы в именах: app-<slug>, data-<slug>, net-<slug> — это облегчает поиск и очистку ресурсов.
+* Kubernetes-ресурсы: префиксы в именах: app-<slug>, data-<slug>, net-<slug> - это облегчает поиск и очистку ресурсов.
 * ENV: STU_ID, STU_GROUP, STU_VARIANT должны логироваться при старте контейнера.

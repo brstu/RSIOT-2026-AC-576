@@ -1,4 +1,4 @@
-# Распределённые системы и облачные технологии — RSIOT-2026-AC-576
+# Распределённые системы и облачные технологии - RSIOT-2026-AC-576
 
 [![Lint](https://github.com/brstu/RSIOT-2026-AC-576/actions/workflows/lint.yml/badge.svg)](https://github.com/brstu/RSIOT-2026-AC-576/actions/workflows/lint.yml)
 
@@ -11,8 +11,8 @@
 
 - Сделайте fork этого репозитория в свой GitHub‑аккаунт.
 - Для каждой ЛР создавайте папку: `students/<NameLatin>/task_xx/{doc,src}`.
-  - В `doc` — отчёт (readme.md) со скриншотами и инструкцией запуска.
-  - В `src` — исходники (Node/HTML/CSS/JS и т.д.).
+  - В `doc` - отчёт (readme.md) со скриншотами и инструкцией запуска.
+  - В `src` - исходники (Node/HTML/CSS/JS и т.д.).
 - Оформляйте Pull Request в этот репозитории. Минимум 2 review другим студентам.
 
 См. также: [CONTRIBUTING.md](./CONTRIBUTING.md), [Code of Conduct](./CODE_OF_CONDUCT.md) и [Вспомогательные материалы](./resources/README.md).
@@ -21,7 +21,7 @@
 
 ## Успеваемость
 
-# Распределённые системы и облачные технологии — RSIOT-2026-AC-576
+# Распределённые системы и облачные технологии - RSIOT-2026-AC-576
 
 [![Lint](https://github.com/brstu/RSiOT-2025/actions/workflows/lint.yml/badge.svg)](https://github.com/brstu/RSiOT-2025/actions/workflows/lint.yml)
 
@@ -34,8 +34,8 @@
 
 - Сделайте fork этого репозитория в свой GitHub‑аккаунт.
 - Для каждой ЛР создавайте папку: `students/<NameLatin>/task_xx/{doc,src}`.
-  - В `doc` — отчёт (readme.md) со скриншотами и инструкцией запуска.
-  - В `src` — исходники (Node/HTML/CSS/JS и т.д.).
+  - В `doc` - отчёт (readme.md) со скриншотами и инструкцией запуска.
+  - В `src` - исходники (Node/HTML/CSS/JS и т.д.).
 - Оформляйте Pull Request в этот репозитории. Минимум 2 review другим студентам.
 
 См. также: [CONTRIBUTING.md](./CONTRIBUTING.md), [Code of Conduct](./CODE_OF_CONDUCT.md) и [Вспомогательные материалы](./resources/README.md).

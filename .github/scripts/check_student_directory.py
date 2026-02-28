@@ -256,13 +256,13 @@ def main():
     event_path = os.environ.get('GITHUB_EVENT_PATH')
     event = load_event(event_path)
     if not event:
-        LOG.error('No event payload — cannot validate')
+        LOG.error('No event payload - cannot validate')
         # write result for workflow
         json.dump({'exit_code': 1, 'message': 'No event payload', 'logs': []}, open(CHECK_RESULT_PATH, 'w', encoding='utf-8'), ensure_ascii=False)
         sys.exit(1)
 
     pr_info = get_pr_info(event)
-    # If the event is a workflow_dispatch payload, it may include inputs.pr_number — fetch the PR JSON
+    # If the event is a workflow_dispatch payload, it may include inputs.pr_number - fetch the PR JSON
     if not pr_info:
         # workflow_dispatch payload shape contains 'inputs'
         try:
@@ -271,7 +271,7 @@ def main():
         except Exception:
             pr_num = None
         if pr_num:
-            LOG.info('workflow_dispatch with pr_number=%s — fetching PR JSON from GitHub API', pr_num)
+            LOG.info('workflow_dispatch with pr_number=%s - fetching PR JSON from GitHub API', pr_num)
             # fetch PR JSON using stdlib to avoid extra deps
             try:
                 import urllib.request
@@ -290,10 +290,10 @@ def main():
                 pr_info = get_pr_info(event)
             except Exception as e:
                 LOG.error('Failed to fetch PR JSON: %s', e)
-                print('Not a pull_request event — skipping')
+                print('Not a pull_request event - skipping')
                 sys.exit(0)
         else:
-            print('Not a pull_request event — skipping')
+            print('Not a pull_request event - skipping')
             sys.exit(0)
 
     author = pr_info.get('author')
@@ -312,12 +312,12 @@ def main():
     whitelist.update(codeowners)
 
     if author.lower() in whitelist:
-        LOG.info('Author %s is in whitelist/Codeowners — skipping validation', author)
+        LOG.info('Author %s is in whitelist/Codeowners - skipping validation', author)
         json.dump({'exit_code': 0, 'message': 'whitelisted', 'logs': []}, open(CHECK_RESULT_PATH, 'w', encoding='utf-8'), ensure_ascii=False)
         sys.exit(0)
 
     if not mapped_dir:
-        LOG.warning('No mapping for GitHub user "%s" in students.csv — manual check required', author)
+        LOG.warning('No mapping for GitHub user "%s" in students.csv - manual check required', author)
         json.dump({'exit_code': 3, 'message': f'No mapping for {author} in students.csv', 'logs': []}, open(CHECK_RESULT_PATH, 'w', encoding='utf-8'), ensure_ascii=False)
         sys.exit(3)
 

@@ -69,9 +69,9 @@ for (const r of all) {
   const rel = path.relative(repoRoot, r.reportPath).replace(/\\/g,'/');
   summary.push(`### ${r.student}/${r.task}`);
   summary.push(`- Итог: ${r.score} / 100`);
-  summary.push(`- Lighthouse: A11y ${r.lighthouse?.a11y ?? '—'}, Best Practices ${r.lighthouse?.bestPractices ?? '—'}`);
+  summary.push(`- Lighthouse: A11y ${r.lighthouse?.a11y ?? '-'}, Best Practices ${r.lighthouse?.bestPractices ?? '-'}`);
   summary.push(`- Публикация: ${r.hasPublication ? 'есть' : 'нет'}`);
-  summary.push(`- Бонусы: ${(r.bonuses||[]).join(', ') || '—'}`);
+  summary.push(`- Бонусы: ${(r.bonuses||[]).join(', ') || '-'}`);
   summary.push(`- Отчёт: ${r.hasReport ? 'есть' : 'нет'}`);
   summary.push(`[Детальный отчёт](/${rel})`);
   summary.push('');

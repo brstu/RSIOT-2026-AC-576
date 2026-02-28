@@ -161,7 +161,7 @@ export async function check({ repoRoot, studentTaskPath, thresholds, ai }) {
   const htmlVal = filesOk ? await htmlValidate(idx) : { ok:false, messages:['Нет index.html'] };
   const bonus = detectBonuses(html, css);
 
-  let aiSummary = '—';
+  let aiSummary = '-';
   if (ai.mcpUrl && ai.mcpKey && html) {
     const aiRes = await askMCP({ serverUrl: ai.mcpUrl, apiKey: ai.mcpKey, payload: {
       task: 'task_01', rubric: { semantics:['landmarks','headings'], accessibility:['labels','focus'], responsive:['breakpoints','flex-grid'], bonuses:['dark_theme','adaptive_images','web_vitals'] }, code: { html, css }, doc: docReadme || ''
@@ -196,7 +196,7 @@ export async function check({ repoRoot, studentTaskPath, thresholds, ai }) {
     `- Валидность HTML: ${htmlVal.ok? 'OK' : 'Issues'} (${(htmlVal.messages||[]).length})`,
     `- Артефакты: ${artifacts.ok? 'OK' : artifacts.issues.join('; ')}`,
     `- Публикация: ${hasPublication? 'есть':'нет'}`,
-    `- Бонусы: ${bonus.bonuses.join(', ') || '—'}`,
+    `- Бонусы: ${bonus.bonuses.join(', ') || '-'}`,
     `- AI (MCP): ${aiSummary}`
   ].join('\n');
   fs.writeFileSync(path.join(outDir, 'report.md'), reportMd, 'utf8');

@@ -38,7 +38,7 @@ LONG_TEMPLATE = (
 
 MULTI_TASK_TEMPLATE = (
     '⚠️ В одном pull request обнаружены изменения сразу по нескольким заданиям: {tasks}.\n\n'
-    'Пожалуйста, разделите каждое задание в отдельный PR (например, task_01 — один PR, task_02 — другой).'
+    'Пожалуйста, разделите каждое задание в отдельный PR (например, task_01 - один PR, task_02 - другой).'
 )
 
 
@@ -136,7 +136,7 @@ def main() -> int:
         body = f"⚠️ Невозможно сопоставить пользователя **{author}** с `students/students.csv`. Пожалуйста, проверьте вручную."
     elif exit_code == 4:
         tasks_list = ', '.join(f'`{t}`' for t in tasks[:10])
-        body = MULTI_TASK_TEMPLATE.format(tasks=tasks_list or '—')
+        body = MULTI_TASK_TEMPLATE.format(tasks=tasks_list or '-')
     else:
         # For exit_code 2 -> files outside allowed directory (violations)
         # For exit_code 5 -> files inside student dir but outside task_* (non_task_files)
