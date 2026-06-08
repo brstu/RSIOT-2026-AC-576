@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: flask-student-app:stu-220245-v17
+    container_name: app-as-576-220245-v17
+    labels:
+      org.bstu.owner: "HelloWorldBLR"
+      org.bstu.student.slug: "as-576-220245-v17"
+    ports:
+      - "9051:9051"
+    environment:
+      - STU_ID=220245
+      - STU_GROUP=AS-576
+      - STU_VARIANT=17
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - net-as-576-220245-v17
+    volumes:
+      - data_w17:/app/data
+    restart: unless-stopped
+    stop_grace_period: 15s
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-as-576-220245-v17
+    labels:
+      org.bstu.owner: "HelloWorldBLR"
+      org.bstu.student.slug: "as-576-220245-v17"
+    command: redis-server --appendonly yes
+    volumes:
+      - data_w17:/data
+    networks:
+      - net-as-576-220245-v17
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  net-as-576-220245-v17:
+    name: net-as-576-220245-v17
+    driver: bridge
+
+volumes:
+  data_w17:
+    name: data_w17
+    driver: local
