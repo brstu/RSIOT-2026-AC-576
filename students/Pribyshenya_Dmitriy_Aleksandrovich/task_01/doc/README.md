@@ -119,7 +119,7 @@
 
 ### Шаг 1: Перейти в папку проекта
 ```powershell
-cd students/PribyshenyaDmitry/task_17/src
+cd students\Pribyshenya_Dmitriy_Aleksandrovich\task_01\src
 ```
 ### Шаг 2: Запустить BAT-файл
 Дважды кликнуть по `start.bat` в проводнике **или** выполнить:
