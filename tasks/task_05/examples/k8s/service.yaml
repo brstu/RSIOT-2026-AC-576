@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: telemetry
+  namespace: smartdom
+  labels:
+    app: telemetry
+    org.bstu.course: RSIOT
+spec:
+  type: ClusterIP
+  selector:
+    app: telemetry
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP

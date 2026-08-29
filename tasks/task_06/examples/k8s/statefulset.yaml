@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: smartdom-db
+  namespace: smartdom
+  labels:
+    app: smartdom-db
+    org.bstu.course: RSIOT
+    org.bstu.variant: "0"
+  annotations:
+    org.bstu.student.slug: "ac-576-00000-v0"
+spec:
+  serviceName: smartdom-db-hl
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smartdom-db
+  template:
+    metadata:
+      labels:
+        app: smartdom-db
+    spec:
+      containers:
+        - name: db
+          image: postgres:16.4
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: app
+            - name: POSTGRES_DB
+              value: smartdom
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+            - name: PGDATA # подкаталог: в корне тома живёт lost+found
+              value: /var/lib/postgresql/data/pgdata
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "app", "-d", "smartdom"]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              memory: "512Mi"
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: smartdom-standard
+        resources:
+          requests:
+            storage: 1Gi

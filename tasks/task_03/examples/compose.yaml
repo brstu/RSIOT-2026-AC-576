@@ -1,0 +1,48 @@
+# Эталонный стенд лабы 3 (вариант 0): devices -> alerts + circuit breaker.
+# «Сломан из коробки»: BREAKER=off. Заморозьте alerts
+# (docker compose pause alerts) — каждый POST /readings повиснет на
+# таймаутах, каскад своими глазами. Чинится флагом:
+#   PowerShell:  $env:BREAKER = "on" ; docker compose up -d devices
+
+services:
+  devices:
+    build: ./devices
+    image: smarthome-lab3-devices:example
+    container_name: lab3-devices-example
+    ports:
+      - "8080:8080"
+    environment:
+      ALERTS_URL: http://alerts:8081     # имя сервиса = DNS-имя в сети compose
+      ALERT_THRESHOLD: "60.0"
+      BREAKER: ${BREAKER:-off}           # off = каскад таймаутов; on = breaker
+      FAIL_THRESHOLD: "3"                # ошибок в окне до перехода в OPEN
+      WINDOW_SIZE: "10"                  # окно: сколько последних вызовов помним
+      RECOVERY_TIMEOUT: "8.0"            # секунд OPEN «остывает» до HALF_OPEN
+      HALF_OPEN_MAX: "1"                 # проб в HALF_OPEN одновременно
+      MAX_CONCURRENT: "4"                # backpressure: слотов обработки тревог
+      RETRY_AFTER: "5"                   # подсказка клиенту в 503
+      DRAIN_INTERVAL: "2.0"              # период догона очереди fallback
+      CLIENT_READ_TIMEOUT: "0.8"
+      MAX_ATTEMPTS: "2"
+      BACKOFF_BASE: "0.2"
+      BACKOFF_CAP: "1.0"
+      STU_ID: "00000"
+      STU_GROUP: "AS-576"
+      STU_VARIANT: "0"
+    labels:
+      org.bstu.owner: "teacher-example"
+      org.bstu.student.slug: "as-576-00000-v0"
+    # depends_on НАМЕРЕННО отсутствует: тема лабы — жить при лежащей
+    # зависимости; devices обязан стартовать и работать без alerts.
+    restart: unless-stopped
+
+  alerts:
+    build: ./alerts
+    image: smarthome-lab3-alerts:example
+    container_name: lab3-alerts-example
+    ports:
+      - "8081:8081"
+    labels:
+      org.bstu.owner: "teacher-example"
+      org.bstu.student.slug: "as-576-00000-v0"
+    restart: unless-stopped

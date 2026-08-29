@@ -1,0 +1,34 @@
+{{- if .Values.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ .Release.Name }}-slo
+  labels:
+    release: monitoring   # обязателен, чтобы Prometheus подхватил правило
+spec:
+  groups:
+    - name: smarthome-slo
+      interval: 30s
+      rules:
+        # Простой алерт варианта: доля 5xx выше порога за окно
+        - alert: SmartHomeHighErrorRate
+          expr: |
+            sum(rate({{ .Values.metrics.prefix }}readings_total{status=~"5.."}[{{ .Values.slo.errorRateWindow }}]))
+              /
+            sum(rate({{ .Values.metrics.prefix }}readings_total[{{ .Values.slo.errorRateWindow }}]))
+              > {{ divf .Values.slo.errorRatePercent 100 }}
+          for: 5m
+          labels: { severity: warning }
+          annotations:
+            summary: "SmartHome ingest: 5xx above {{ .Values.slo.errorRatePercent }}%"
+        # p95 задержки против SLO варианта
+        - alert: SmartHomeHighLatency
+          expr: |
+            histogram_quantile(0.95,
+              sum(rate({{ .Values.metrics.prefix }}ingest_duration_seconds_bucket[5m])) by (le)
+            ) > {{ .Values.slo.p95LatencySeconds }}
+          for: 5m
+          labels: { severity: warning }
+          annotations:
+            summary: "SmartHome ingest: p95 latency above SLO"
+{{- end }}

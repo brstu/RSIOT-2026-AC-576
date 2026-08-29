@@ -1,0 +1,6 @@
+apiVersion: v2
+name: smarthome-app
+description: SmartHome ingest service with Prometheus monitoring (RSIOT lab 04 example, variant 0)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

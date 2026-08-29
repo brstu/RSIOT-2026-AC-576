@@ -1,0 +1,9 @@
+# Свой класс-алиас поверх провижионера kind (rancher.io/local-path).
+# В вашей сдаче имя класса — из варианта (default/ssd/premium → свои алиасы).
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: smartdom-standard
+provisioner: rancher.io/local-path
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
