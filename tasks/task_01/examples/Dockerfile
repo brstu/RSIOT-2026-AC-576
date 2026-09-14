@@ -14,9 +14,7 @@ RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 FROM python:3.12-alpine
 
 # Метаданные студента (требование лабы). В своей работе замените значения.
-LABEL org.bstu.student.fullname="Пример Преподавателя" \
-      org.bstu.student.id="00000" \
-      org.bstu.group="AS-576" \
+LABEL org.bstu.student.id="00000" \
       org.bstu.variant="0" \
       org.bstu.course="RSIOT"
 

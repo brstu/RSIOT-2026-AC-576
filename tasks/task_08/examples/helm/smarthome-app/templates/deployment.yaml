@@ -26,8 +26,6 @@ spec:
           env:
             - name: STU_ID
               value: {{ .Values.student.id | quote }}
-            - name: STU_GROUP
-              value: {{ .Values.student.group | quote }}
             - name: STU_VARIANT
               value: {{ .Values.student.variant | quote }}
           readinessProbe:

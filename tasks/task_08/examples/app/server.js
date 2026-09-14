@@ -36,7 +36,7 @@ register.registerMetric(hubConnections);
 
 // Идентификация студента (требование лабы): логируем при старте
 console.log(
-  `start STU_ID=${process.env.STU_ID || "?"} STU_GROUP=${process.env.STU_GROUP || "?"} STU_VARIANT=${process.env.STU_VARIANT || "0"}`
+  `start STU_ID=${process.env.STU_ID || "?"} STU_VARIANT=${process.env.STU_VARIANT || "0"}`
 );
 
 // Имитация подключённых Hub'ов

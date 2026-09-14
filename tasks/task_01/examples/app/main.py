@@ -6,7 +6,7 @@
 
   REDIS_URL   — адрес Redis (по умолчанию redis://localhost:6379/0)
   KEY_PREFIX  — префикс ключей stu:<StudentID>:v<вариант>
-  STU_ID, STU_GROUP, STU_VARIANT — метаданные студента, логируются при старте
+  STU_ID, STU_VARIANT — метаданные студента, логируются при старте
 
 Ключевые приёмы лабы, которые здесь показаны:
   * сервис НЕ падает при недоступном Redis — health отвечает 503 (частичный
@@ -35,7 +35,6 @@ log = logging.getLogger("telemetry")
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 KEY_PREFIX = os.getenv("KEY_PREFIX", "stu:00000:v0")
 STU_ID = os.getenv("STU_ID", "00000")
-STU_GROUP = os.getenv("STU_GROUP", "AS-576")
 STU_VARIANT = os.getenv("STU_VARIANT", "0")
 
 HISTORY_LIMIT = 100  # храним последние N показаний на устройство
@@ -54,8 +53,8 @@ class ReadingIn(BaseModel):
 async def lifespan(app: FastAPI):
     # Старт: логируем метаданные студента (требование лабы) и конфигурацию.
     log.info(
-        "start: STU_ID=%s STU_GROUP=%s STU_VARIANT=%s redis=%s prefix=%s",
-        STU_ID, STU_GROUP, STU_VARIANT, REDIS_URL, KEY_PREFIX,
+        "start: STU_ID=%s STU_VARIANT=%s redis=%s prefix=%s",
+        STU_ID, STU_VARIANT, REDIS_URL, KEY_PREFIX,
     )
     # Подключение ленивое: если Redis ещё не готов, сервис всё равно стартует,
     # а health будет отвечать 503, пока зависимость не поднимется.

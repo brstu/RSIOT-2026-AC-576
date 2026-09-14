@@ -24,7 +24,6 @@ slo:
 
 student:
   id: "00000"
-  group: "AS-576"
   variant: "0"
 
 resources:

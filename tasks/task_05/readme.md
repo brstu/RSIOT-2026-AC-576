@@ -94,7 +94,7 @@ ConfigMap/Secret), настроить пробы и ресурсы, выполн
    финальный образ ≤ 150 MB, non-root, graceful shutdown (SIGTERM),
    логирование старта/остановки.
 2. Сервис обязан отдавать `GET /health/live` и `GET /health/ready` и
-   логировать при старте `STU_ID`, `STU_GROUP`, `STU_VARIANT` из ENV.
+   логировать при старте `STU_ID`, `STU_VARIANT` из ENV.
 3. Загрузите образ в кластер (`kind load docker-image <image>:<tag>`)
    или опубликуйте в GHCR/Docker Hub.
 
@@ -161,11 +161,10 @@ students/<NameLatin>/task_05/
    своими словами.
 
 **Метаданные** (в `src/README.md` и метках манифестов):
-ФИО, группа, StudentID, email, GitHub username, вариант, даты, версии
-ОС/Docker/kubectl/kind. В манифестах — labels/annotations:
-`org.bstu.student.fullname`, `org.bstu.student.id`, `org.bstu.group`,
-`org.bstu.variant`, `org.bstu.course=RSIOT`,
-`org.bstu.student.slug` = `<группа>-<StudentID>-v<вариант>`.
+StudentID, GitHub username, вариант, даты, версии ОС/Docker/kubectl/kind
+(без ФИО, группы и email). В манифестах — labels/annotations:
+`org.bstu.student.id`, `org.bstu.variant`, `org.bstu.course=RSIOT`,
+`org.bstu.student.slug` = `<StudentID>-v<вариант>`.
 <!-- END:artifacts -->
 
 <!-- START:criteria -->

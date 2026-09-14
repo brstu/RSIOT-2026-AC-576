@@ -5,18 +5,17 @@ services:
   telemetry:
     build: .
     image: smarthome-telemetry:stu-00000-v0   # тег по стандарту лабы, не latest
-    container_name: app-as-576-00000-v0
+    container_name: app-00000-v0
     ports:
       - "8080:8080"        # хост:контейнер; при занятом 8080 меняйте левую часть
     environment:
       REDIS_URL: redis://redis:6379/0   # имя сервиса = DNS-имя в сети compose
       KEY_PREFIX: "stu:00000:v0"
       STU_ID: "00000"
-      STU_GROUP: "AS-576"
       STU_VARIANT: "0"
     labels:
       org.bstu.owner: "teacher-example"
-      org.bstu.student.slug: "as-576-00000-v0"
+      org.bstu.student.slug: "00000-v0"
     depends_on:
       redis:
         condition: service_healthy   # ждать готовности, а не только старта

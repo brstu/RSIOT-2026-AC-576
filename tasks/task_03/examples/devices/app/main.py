@@ -55,7 +55,6 @@ BACKOFF_BASE = float(os.getenv("BACKOFF_BASE", "0.2"))
 BACKOFF_CAP = float(os.getenv("BACKOFF_CAP", "1.0"))
 
 STU_ID = os.getenv("STU_ID", "00000")
-STU_GROUP = os.getenv("STU_GROUP", "AS-576")
 STU_VARIANT = os.getenv("STU_VARIANT", "0")
 
 breaker = CircuitBreaker(
@@ -124,9 +123,9 @@ async def lifespan(_: FastAPI):
 app = FastAPI(title="SmartHome Devices (лаба 3, вариант 0)", lifespan=lifespan)
 
 log.info(
-    "start: STU_ID=%s STU_GROUP=%s STU_VARIANT=%s alerts=%s breaker=%s "
+    "start: STU_ID=%s STU_VARIANT=%s alerts=%s breaker=%s "
     "fail_threshold=%d window=%d recovery=%.1fs max_concurrent=%d",
-    STU_ID, STU_GROUP, STU_VARIANT, ALERTS_URL,
+    STU_ID, STU_VARIANT, ALERTS_URL,
     "on" if BREAKER else "off",
     FAIL_THRESHOLD, WINDOW_SIZE, RECOVERY_TIMEOUT, MAX_CONCURRENT,
 )

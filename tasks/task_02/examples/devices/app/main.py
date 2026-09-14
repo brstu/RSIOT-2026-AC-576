@@ -42,7 +42,6 @@ BACKOFF_BASE = float(os.getenv("BACKOFF_BASE", "0.2"))
 BACKOFF_CAP = float(os.getenv("BACKOFF_CAP", "2.0"))
 
 STU_ID = os.getenv("STU_ID", "00000")
-STU_GROUP = os.getenv("STU_GROUP", "AS-576")
 STU_VARIANT = os.getenv("STU_VARIANT", "0")
 
 app = FastAPI(title="SmartHome Devices (вариант 0)")
@@ -50,8 +49,8 @@ app = FastAPI(title="SmartHome Devices (вариант 0)")
 readings: list[dict] = []  # история показаний (память процесса — фокус лабы не тут)
 
 log.info(
-    "start: STU_ID=%s STU_GROUP=%s STU_VARIANT=%s alerts=%s idempotency=%s jitter=%s",
-    STU_ID, STU_GROUP, STU_VARIANT, ALERTS_URL,
+    "start: STU_ID=%s STU_VARIANT=%s alerts=%s idempotency=%s jitter=%s",
+    STU_ID, STU_VARIANT, ALERTS_URL,
     "on" if IDEMPOTENCY else "off", "on" if RETRY_JITTER else "off",
 )
 

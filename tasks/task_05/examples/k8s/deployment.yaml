@@ -8,8 +8,7 @@ metadata:
     org.bstu.course: RSIOT
     org.bstu.variant: "0"
   annotations:
-    org.bstu.student.fullname: "Пример преподавателя"
-    org.bstu.student.slug: "ac-576-00000-v0"
+    org.bstu.student.slug: "00000-v0"
 spec:
   replicas: 2
   selector:
@@ -34,8 +33,6 @@ spec:
           env:
             - name: STU_ID
               value: "00000"
-            - name: STU_GROUP
-              value: "AC-576"
             - name: STU_VARIANT
               value: "0"
             - name: ALERT_THRESHOLD_C

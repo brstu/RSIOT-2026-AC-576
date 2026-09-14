@@ -168,9 +168,9 @@ devices → alerts) — в [examples/](examples/): копировать его �
 ## Метаданные студента (обязательно)
 
 Стандарт — тот же, что в [ЛР1](../task_01/readme.md) и [ЛР2](../task_02/readme.md):
-README проекта с ФИО, группой, StudentID, email, GitHub username, № варианта,
-датой и версиями; `LABEL org.bstu.*` в Dockerfile; `labels` в compose;
-slug `<группа>-<StudentID>-v<вариант>`; теги образов
+README проекта со StudentID, GitHub username, № варианта, датой и версиями
+(без ФИО, группы и email); `LABEL org.bstu.*` в Dockerfile; `labels` в compose;
+slug `<StudentID>-v<вариант>`; теги образов
 `:stu-<StudentID>-v<вариант>` (не `latest`); ENV `STU_*` в логах старта.
 
 ---

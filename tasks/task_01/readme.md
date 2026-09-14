@@ -103,7 +103,7 @@ docker compose down
 Node.js 22) с эндпоинтами варианта (например, `POST /readings`,
 `GET /devices/{id}/readings`) и health-эндпоинтом. Требования:
 
-* конфигурация только через переменные окружения (порт, адрес зависимости, `STU_ID`, `STU_GROUP`, `STU_VARIANT` — логируются при старте);
+* конфигурация только через переменные окружения (порт, адрес зависимости, `STU_ID`, `STU_VARIANT` — логируются при старте);
 * данные храните в зависимости варианта (Redis или PostgreSQL), не в памяти процесса и не в файлах контейнера;
 * при недоступности зависимости сервис не падает: отвечает 503 на health и повторяет подключение (лекция 01 — частичный отказ, а не полный).
 
@@ -138,14 +138,12 @@ Node.js 22) с эндпоинтами варианта (например, `POST 
 
 ## Метаданные студента (обязательно)
 
-В README своего проекта: ФИО, группа, StudentID, учебный email, GitHub
-username, № варианта, дата, версия ОС и Docker Desktop/Engine.
+В README своего проекта: StudentID, GitHub username, № варианта, дата,
+версия ОС и Docker Desktop/Engine (без ФИО, группы и email).
 
 В Dockerfile → `LABEL`:
 
-* `org.bstu.student.fullname` = ФИО
 * `org.bstu.student.id` = StudentID
-* `org.bstu.group` = группа
 * `org.bstu.variant` = номер варианта
 * `org.bstu.course` = RSIOT
 
@@ -154,13 +152,13 @@ username, № варианта, дата, версия ОС и Docker Desktop/En
 * `org.bstu.owner` = GitHub username
 * `org.bstu.student.slug` = slug
 
-slug = `<группа>-<StudentID>-v<вариант>` (например, `as-576-12345-v47`).
+slug = `<StudentID>-v<вариант>` (например, `12345-v47`).
 
 ## Требования к именованию
 
 * Теги образов: суффикс `:stu-<StudentID>-v<вариант>`; тег `latest` не использовать;
 * имена контейнеров/томов/сетей включают slug (`app-<slug>`, `data-<slug>`, `net-<slug>`);
-* ENV `STU_ID`, `STU_GROUP`, `STU_VARIANT` — логируются при старте;
+* ENV `STU_ID`, `STU_VARIANT` — логируются при старте;
 * PostgreSQL: имя БД `app_<StudentID>_v<вариант>`; Redis: префикс ключей `stu:<StudentID>:v<вариант>:<entity>`.
 
 ---

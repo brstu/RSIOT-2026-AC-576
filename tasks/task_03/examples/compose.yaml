@@ -27,11 +27,10 @@ services:
       BACKOFF_BASE: "0.2"
       BACKOFF_CAP: "1.0"
       STU_ID: "00000"
-      STU_GROUP: "AS-576"
       STU_VARIANT: "0"
     labels:
       org.bstu.owner: "teacher-example"
-      org.bstu.student.slug: "as-576-00000-v0"
+      org.bstu.student.slug: "00000-v0"
     # depends_on НАМЕРЕННО отсутствует: тема лабы — жить при лежащей
     # зависимости; devices обязан стартовать и работать без alerts.
     restart: unless-stopped
@@ -44,5 +43,5 @@ services:
       - "8081:8081"
     labels:
       org.bstu.owner: "teacher-example"
-      org.bstu.student.slug: "as-576-00000-v0"
+      org.bstu.student.slug: "00000-v0"
     restart: unless-stopped

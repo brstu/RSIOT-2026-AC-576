@@ -145,8 +145,8 @@ students/<NameLatin>/task_07/
 экспериментов (дрейф, self-heal, revert, полный путь коммита), заполните
 «Зачем в реальных системах» и «Использование ИИ».
 
-**Метаданные** — как в лабах 5–6: ФИО/группа/StudentID/email/GitHub/
-вариант в `src/README.md`; labels `org.bstu.*` и slug в манифестах.
+**Метаданные** — как в лабах 5–6: StudentID/GitHub/вариант (без ФИО, группы
+и email) в `src/README.md`; labels `org.bstu.*` и slug в манифестах.
 <!-- END:artifacts -->
 
 <!-- START:criteria -->

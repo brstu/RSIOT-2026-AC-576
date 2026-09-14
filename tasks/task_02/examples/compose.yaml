@@ -21,11 +21,10 @@ services:
       BACKOFF_BASE: "0.2"
       BACKOFF_CAP: "2.0"
       STU_ID: "00000"
-      STU_GROUP: "AS-576"
       STU_VARIANT: "0"
     labels:
       org.bstu.owner: "teacher-example"
-      org.bstu.student.slug: "as-576-00000-v0"
+      org.bstu.student.slug: "00000-v0"
     depends_on:
       alerts:
         condition: service_healthy
@@ -41,5 +40,5 @@ services:
       LOST_RESPONSE_DELAY: "2.0"         # больше read-таймаута клиента devices
     labels:
       org.bstu.owner: "teacher-example"
-      org.bstu.student.slug: "as-576-00000-v0"
+      org.bstu.student.slug: "00000-v0"
     restart: unless-stopped

@@ -150,8 +150,8 @@ students/<NameLatin>/task_06/
 4. Заполните «Зачем в реальных системах» и «Использование ИИ» своими
    словами.
 
-**Метаданные** — как в лабе 5: ФИО/группа/StudentID/email/GitHub/вариант
-в `src/README.md`; labels/annotations `org.bstu.*` и slug в манифестах.
+**Метаданные** — как в лабе 5: StudentID/GitHub/вариант (без ФИО, группы и
+email) в `src/README.md`; labels/annotations `org.bstu.*` и slug в манифестах.
 <!-- END:artifacts -->
 
 <!-- START:criteria -->

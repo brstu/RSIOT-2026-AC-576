@@ -38,8 +38,8 @@ class Reading(BaseModel):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     log.info(
-        "starting: STU_ID=%s STU_GROUP=%s STU_VARIANT=%s",
-        os.getenv("STU_ID", "?"), os.getenv("STU_GROUP", "?"), os.getenv("STU_VARIANT", "?"),
+        "starting: STU_ID=%s STU_VARIANT=%s",
+        os.getenv("STU_ID", "?"), os.getenv("STU_VARIANT", "?"),
     )
     log.info("config: ALERT_THRESHOLD_C=%s, DB_PASSWORD=%s",
              ALERT_THRESHOLD_C, "***set***" if os.getenv("DB_PASSWORD") else "missing")

@@ -129,18 +129,17 @@ students/<NameLatin>/task_08/
 
 ### Метаданные (обязательно)
 
-В `README.md` укажите: ФИО, группа, StudentID, учебный email, GitHub
-username, номер варианта, дата, версии ОС/Docker/kubectl/Helm/minikube.
+В `README.md` укажите: StudentID, GitHub username, номер варианта, дата,
+версии ОС/Docker/kubectl/Helm/minikube (без ФИО, группы и email).
 
-В labels Kubernetes-манифестов: `org.bstu.student.fullname`,
-`org.bstu.student.id`, `org.bstu.group`, `org.bstu.variant`,
+В labels Kubernetes-манифестов: `org.bstu.student.id`, `org.bstu.variant`,
 `org.bstu.course=RSIOT`, `org.bstu.owner`, `org.bstu.student.slug`;
-slug = `<группа>-<StudentID>-v<вариант>` (пример: `as-576-12345-v07`).
+slug = `<StudentID>-v<вариант>` (пример: `12345-v07`).
 
 ### Требования к именованию
 
 - Kubernetes-ресурсы: префиксы `mon-<slug>`, `alert-<slug>`, `chart-<slug>`.
-- ENV `STU_ID`, `STU_GROUP`, `STU_VARIANT` логируются при старте контейнера.
+- ENV `STU_ID`, `STU_VARIANT` логируются при старте контейнера.
 - Namespace приложения: `app-<slug>`; Helm release: `<slug>-app`.
 <!-- END:artifacts -->
 

@@ -26,7 +26,7 @@ examples/
 
 ```powershell
 docker build -t smartdom-telemetry:0.1.0 .
-docker run --rm -p 8080:8080 -e STU_ID=00000 -e STU_GROUP=AC-576 -e STU_VARIANT=0 smartdom-telemetry:0.1.0
+docker run --rm -p 8080:8080 -e STU_ID=00000 -e STU_VARIANT=0 smartdom-telemetry:0.1.0
 curl http://localhost:8080/health/ready
 curl -X POST http://localhost:8080/readings -H "Content-Type: application/json" -d '{"device_id":"dev-1","sensor":"temp","value":21.5}'
 curl http://localhost:8080/stats
