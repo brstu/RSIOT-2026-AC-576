@@ -1,0 +1,13 @@
+# Отдельный PVC под копии: бэкап не живёт на томе с данными.
+# По 3-2-1 в проде копия дополнительно уезжает за пределы кластера.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-backups
+  namespace: smartdom
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: smartdom-standard
+  resources:
+    requests:
+      storage: 1Gi

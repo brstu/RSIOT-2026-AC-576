@@ -1,0 +1,44 @@
+# Эталонный стенд лабы 2 (вариант 0): devices -> alerts.
+# «Сломан из коробки»: IDEMPOTENCY=off, а первый ответ alerts «теряется» —
+# повтор POST /alerts создаёт ДУБЛЬ тревоги. Чинится флагом:
+#   PowerShell:  $env:IDEMPOTENCY = "on" ; docker compose up -d devices
+
+services:
+  devices:
+    build: ./devices
+    image: smarthome-lab2-devices:example
+    container_name: lab2-devices-example
+    ports:
+      - "8080:8080"
+    environment:
+      ALERTS_URL: http://alerts:8081     # имя сервиса = DNS-имя в сети compose
+      ALERT_THRESHOLD: "60.0"
+      IDEMPOTENCY: ${IDEMPOTENCY:-off}   # off = дубли; on = ключ идемпотентности
+      RETRY_JITTER: ${RETRY_JITTER:-on}
+      SIMULATE_LOST_RESPONSE: ${SIMULATE_LOST_RESPONSE:-on}
+      CLIENT_READ_TIMEOUT: "0.8"         # меньше LOST_RESPONSE_DELAY у alerts!
+      MAX_ATTEMPTS: "4"
+      BACKOFF_BASE: "0.2"
+      BACKOFF_CAP: "2.0"
+      STU_ID: "00000"
+      STU_VARIANT: "0"
+    labels:
+      org.bstu.owner: "teacher-example"
+      org.bstu.student.slug: "00000-v0"
+    depends_on:
+      alerts:
+        condition: service_healthy
+    restart: unless-stopped
+
+  alerts:
+    build: ./alerts
+    image: smarthome-lab2-alerts:example
+    container_name: lab2-alerts-example
+    ports:
+      - "8081:8081"
+    environment:
+      LOST_RESPONSE_DELAY: "2.0"         # больше read-таймаута клиента devices
+    labels:
+      org.bstu.owner: "teacher-example"
+      org.bstu.student.slug: "00000-v0"
+    restart: unless-stopped

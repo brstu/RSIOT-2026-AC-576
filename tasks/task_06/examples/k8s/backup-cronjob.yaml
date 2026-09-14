@@ -1,0 +1,42 @@
+# Логический бэкап pg_dump каждые 15 минут (в вашей сдаче — расписание варианта).
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+  namespace: smartdom
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: dump
+              image: postgres:16.4
+              env:
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secret
+                      key: password
+              command: ["/bin/sh", "-c"]
+              args:
+                - >
+                  set -e;
+                  ts=$(date +%Y%m%d-%H%M%S);
+                  pg_dump -h smartdom-db-0.smartdom-db-hl -U app -d smartdom
+                  -f /backups/smartdom-$ts.sql;
+                  cp /backups/smartdom-$ts.sql /backups/latest.sql;
+                  echo "backup done: smartdom-$ts.sql";
+                  ls -lh /backups
+              volumeMounts:
+                - name: backups
+                  mountPath: /backups
+          volumes:
+            - name: backups
+              persistentVolumeClaim:
+                claimName: db-backups

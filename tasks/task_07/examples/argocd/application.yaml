@@ -1,0 +1,22 @@
+# Application: «следи за каталогом infra/ вот этого репозитория».
+# ЗАМЕНИТЕ repoURL на ваш fork перед применением!
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: smartdom-telemetry
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/<ваш-логин>/<ваш-репозиторий>.git
+    targetRevision: main
+    path: examples/infra # в своей сдаче — путь к вашему infra/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: smartdom
+  syncPolicy:
+    automated:
+      prune: true    # удалять из кластера то, что удалено из git
+      selfHeal: true # откатывать ручные правки
+    syncOptions:
+      - CreateNamespace=false # namespace создаёт terraform (часть 2)

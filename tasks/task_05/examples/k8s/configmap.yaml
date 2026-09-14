@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telemetry-config
+  namespace: smartdom
+data:
+  ALERT_THRESHOLD_C: "60"
+  WARMUP_SECONDS: "5"

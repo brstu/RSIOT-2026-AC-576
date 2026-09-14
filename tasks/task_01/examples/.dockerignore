@@ -1,0 +1,11 @@
+# Не тащим в контекст сборки мусор и секреты
+.git
+.gitignore
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.log
+.env
+compose.yaml
+README.md

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartdom-db-hl
+  namespace: smartdom
+  labels:
+    app: smartdom-db
+spec:
+  clusterIP: None # headless: DNS-имя каждому поду вместо балансировки
+  selector:
+    app: smartdom-db
+  ports:
+    - name: pg
+      port: 5432

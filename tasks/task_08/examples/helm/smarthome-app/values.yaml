@@ -1,0 +1,35 @@
+# Параметры варианта 0 («СмартДом»). Для своего варианта меняйте values,
+# а не templates — в этом смысл Helm-параметризации.
+replicaCount: 2
+
+image:
+  repository: smarthome-ingest
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  port: 80
+  targetPort: 8080
+
+metrics:
+  enabled: true
+  prefix: smarthome_
+  interval: 30s
+
+slo:
+  availability: "99.9"      # процент успешных приёмов за 30 дней
+  p95LatencySeconds: "0.3"  # p95 задержки приёма
+  errorRatePercent: "1"     # порог 5xx для простого алерта
+  errorRateWindow: "10m"
+
+student:
+  id: "00000"
+  variant: "0"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi

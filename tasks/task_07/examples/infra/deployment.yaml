@@ -1,0 +1,46 @@
+# За этим файлом следит Argo CD; тег образа обновляет workflow (бот).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telemetry
+  namespace: smartdom
+  labels:
+    app: telemetry
+    org.bstu.course: RSIOT
+    org.bstu.variant: "0"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: telemetry
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: telemetry
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/smartdom/telemetry:0.1.0 # <- бампает CI
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: stand-params
+                optional: true # ConfigMap появится в части 2 (terraform)
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              memory: "256Mi"

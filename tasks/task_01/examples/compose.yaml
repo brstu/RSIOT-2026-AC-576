@@ -1,0 +1,40 @@
+# Эталонный compose-стенд лабы 1 (вариант 0): телеметрия + Redis + volume.
+# Compose v2: файл называется compose.yaml, поле `version:` устарело.
+
+services:
+  telemetry:
+    build: .
+    image: smarthome-telemetry:stu-00000-v0   # тег по стандарту лабы, не latest
+    container_name: app-00000-v0
+    ports:
+      - "8080:8080"        # хост:контейнер; при занятом 8080 меняйте левую часть
+    environment:
+      REDIS_URL: redis://redis:6379/0   # имя сервиса = DNS-имя в сети compose
+      KEY_PREFIX: "stu:00000:v0"
+      STU_ID: "00000"
+      STU_VARIANT: "0"
+    labels:
+      org.bstu.owner: "teacher-example"
+      org.bstu.student.slug: "00000-v0"
+    depends_on:
+      redis:
+        condition: service_healthy   # ждать готовности, а не только старта
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: data-as-576-00000-v0
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - readings-data:/data   # показания переживают пересоздание контейнера
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    labels:
+      org.bstu.owner: "teacher-example"
+      org.bstu.student.slug: "as-576-00000-v0"
+
+volumes:
+  readings-data: {}

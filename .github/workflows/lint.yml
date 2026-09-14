@@ -35,4 +35,4 @@ jobs:
           VALIDATE_DOCKERFILE_HADOLINT: true  
           VALIDATE_SQL: true                  
           # Exclude generated/build outputs from linting
-          FILTER_REGEX_EXCLUDE: "(node_modules/|tools/ci/out/)"
+          FILTER_REGEX_EXCLUDE: "(node_modules/|tools/ci/out/|helm/.*/templates/)"

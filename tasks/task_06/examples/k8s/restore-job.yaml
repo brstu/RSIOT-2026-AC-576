@@ -1,0 +1,36 @@
+# Восстановление из последней копии. Job неизменяем: перед повторным
+# запуском удалите старый (kubectl -n smartdom delete job db-restore).
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-restore
+  namespace: smartdom
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: restore
+          image: postgres:16.4
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              set -e;
+              test -f /backups/latest.sql || { echo "no backup found"; exit 1; };
+              psql -h smartdom-db-0.smartdom-db-hl -U app -d smartdom
+              -f /backups/latest.sql;
+              echo "restore done from latest.sql"
+          volumeMounts:
+            - name: backups
+              mountPath: /backups
+              readOnly: true
+      volumes:
+        - name: backups
+          persistentVolumeClaim:
+            claimName: db-backups
